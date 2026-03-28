@@ -6,12 +6,11 @@ require('dotenv').config();
 
 const requiredVars = ['GROQ_API_KEY'];
 
-for (const key of requiredVars) {
-    if (!process.env[key]) {
-        console.error(`❌ Missing required environment variable: ${key}`);
-        console.error('   Please check your .env file. See .env.example for reference.');
-        process.exit(1);
-    }
+const missingVars = requiredVars.filter(key => !process.env[key]);
+if (missingVars.length > 0) {
+    console.warn(`⚠️ Missing environment variables: ${missingVars.join(', ')}`);
+    console.warn('   AI features will not work. Please check your environment variables.');
+    // Don't call process.exit() — it crashes serverless functions (Vercel)
 }
 
 module.exports = {

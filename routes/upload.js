@@ -12,9 +12,13 @@ const router = Router();
 
 const IMAGES_DIR = path.join(__dirname, '..', 'assets', 'images');
 
-// Ensure the images directory exists
-if (!fs.existsSync(IMAGES_DIR)) {
-    fs.mkdirSync(IMAGES_DIR, { recursive: true });
+// Ensure the images directory exists (skip on read-only filesystems like Vercel)
+try {
+    if (!fs.existsSync(IMAGES_DIR)) {
+        fs.mkdirSync(IMAGES_DIR, { recursive: true });
+    }
+} catch (e) {
+    console.warn('⚠️ Could not create images directory (read-only filesystem)');
 }
 
 // ─── Multer Setup ───
