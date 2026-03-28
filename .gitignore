@@ -26,7 +26,5 @@ desktop.ini
 dist/
 build/
 
-# Uploads (keep directory structure, ignore files)
-assets/images/*.jpg
-assets/images/*.png
-!assets/images/.gitkeep
+# Uploads (tracked)
+# assets/images/ is intentionally left empty here to allow initial photos to be committed.
